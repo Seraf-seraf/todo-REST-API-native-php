@@ -1,0 +1,15 @@
+{
+    "name": "user/todo-rest-api-native-php",
+    "autoload": {
+        "psr-4": {
+            "ToDo\\": "./"
+        }
+    },
+    "authors": [
+        {
+            "name": "Seraf-seraf",
+            "email": "serafim123sima@mail.ru"
+        }
+    ],
+    "require": {}
+}
