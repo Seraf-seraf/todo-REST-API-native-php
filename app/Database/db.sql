@@ -1,0 +1,7 @@
+CREATE TABLE tasks (
+    `id` BIGINT PRIMARY KEY AUTO_INCREMENT,
+    `title` VARCHAR(64) NOT NULL,
+    `description` VARCHAR(128) NOT NULL,
+    `due_date` TIMESTAMP DEFAULT NOW() NOT NULL,
+    `status` BOOL DEFAULT '0'
+);

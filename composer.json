@@ -2,7 +2,7 @@
     "name": "user/todo-rest-api-native-php",
     "autoload": {
         "psr-4": {
-            "ToDo\\": "./"
+            "ToDo\\": "./app"
         }
     },
     "authors": [
@@ -11,5 +11,12 @@
             "email": "serafim123sima@mail.ru"
         }
     ],
-    "require": {}
+    "require": {
+      "ext-pdo": "*",
+      "ext-mbstring": "*",
+      "zircote/swagger-php": "^3"
+    },
+    "require-dev": {
+        "swagger-api/swagger-ui": "^5.17"
+    }
 }

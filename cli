@@ -1,0 +1,27 @@
+#!/usr/bin/env php
+<?php
+chdir(__DIR__);
+function executeCommand($command): void
+{
+    $output = shell_exec($command);
+
+    if ($output === null) {
+        echo "Command '$command' failed to execute.";
+    } else {
+        echo "Output: $output";
+    }
+}
+
+// Пример использования
+if (php_sapi_name() == "cli") {
+    if (isset($argv[1])) {
+        $command = $argv[1];
+        if ($command === 'migrate') {
+            executeCommand('php ./app/Command/commands.php');
+        }
+    } else {
+        echo "Доступные команды: migrate";
+    }
+} else {
+    echo "This script should be run from the command line.\n";
+}

@@ -1,0 +1,163 @@
+openapi: 3.0.0
+info:
+  title: 'ToDo REST API'
+  version: '1.0'
+paths:
+  /tasks:
+    get:
+      summary: 'Retrieve a list of tasks'
+      operationId: 3e36782f4fe83d97c52f53b3f9cb7b7d
+      responses:
+        '200':
+          description: 'A list of tasks'
+          content:
+            application/json:
+              schema:
+                properties:
+                  body: { type: array, items: { $ref: '#/components/schemas/Task' } }
+                  statusCode: { type: integer, example: 200 }
+                type: object
+    post:
+      summary: 'Create a new task'
+      operationId: fe3e8eaa556086cfc6cd49ed905f4150
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Task'
+      responses:
+        '201':
+          description: 'Task created successfully'
+          content:
+            application/json:
+              schema:
+                properties:
+                  body: { $ref: '#/components/schemas/Task' }
+                  statusCode: { type: integer, example: 201 }
+                type: object
+        '422':
+          description: 'Validation error'
+          content:
+            application/json:
+              schema:
+                properties:
+                  body: { properties: { errors: { type: object, additionalProperties: { type: array, items: { type: string } } } }, type: object }
+                  statusCode: { type: integer, example: 422 }
+                type: object
+  '/tasks/{id}':
+    get:
+      summary: 'Retrieve a task by ID'
+      operationId: 41ab4ad30cd133ad366d6ac8c51437e2
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Successful operation'
+          content:
+            application/json:
+              schema:
+                properties:
+                  body: { $ref: '#/components/schemas/Task' }
+                  statusCode: { type: integer, example: 200 }
+                type: object
+        '404':
+          description: 'Task not found'
+          content:
+            application/json:
+              schema:
+                properties:
+                  error: { type: string, example: 'Task not found' }
+                  statusCode: { type: integer, example: 404 }
+                type: object
+    put:
+      summary: 'Update an existing task'
+      operationId: ec4649aa92f6950f748cf007a8b967b3
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Task'
+      responses:
+        '200':
+          description: 'Task updated successfully'
+          content:
+            application/json:
+              schema:
+                properties:
+                  body: { $ref: '#/components/schemas/Task' }
+                  statusCode: { type: integer, example: 200 }
+                type: object
+        '422':
+          description: 'Validation error'
+          content:
+            application/json:
+              schema:
+                properties:
+                  body: { properties: { errors: { type: object, additionalProperties: { type: array, items: { type: string } } } }, type: object }
+                  statusCode: { type: integer, example: 422 }
+                type: object
+        '404':
+          description: 'Task not found'
+          content:
+            application/json:
+              schema:
+                properties:
+                  error: { type: string, example: 'Task not found' }
+                  statusCode: { type: integer, example: 404 }
+                type: object
+    delete:
+      summary: 'Delete a task'
+      operationId: ae787e7b3edd8125361eac9675c22c87
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: 'Task deleted successfully'
+        '404':
+          description: 'Task not found'
+          content:
+            application/json:
+              schema:
+                properties:
+                  error: { type: string, example: 'Task not found' }
+                  statusCode: { type: integer, example: 404 }
+                type: object
+components:
+  schemas:
+    Task:
+      required:
+        - title
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        due_date:
+          type: string
+          format: date-time
+        status:
+          description: '0 for incomplete, 1 for complete'
+          type: integer
+          enum:
+            - 0
+            - 1
+      type: object
