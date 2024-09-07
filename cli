@@ -12,7 +12,6 @@ function executeCommand($command): void
     }
 }
 
-// Пример использования
 if (php_sapi_name() == "cli") {
     if (isset($argv[1])) {
         $command = $argv[1];
